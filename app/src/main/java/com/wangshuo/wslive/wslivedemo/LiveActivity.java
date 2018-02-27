@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import java.util.LinkedList;
-import java.util.Random;
 
 import me.lake.librestreaming.core.listener.RESConnectionListener;
 import me.lake.librestreaming.filter.hardvideofilter.BaseHardVideoFilter;
@@ -19,7 +18,7 @@ public class LiveActivity extends AppCompatActivity {
     private static final String TAG = LiveActivity.class.getSimpleName();
     private StreamLiveCameraView mLiveCameraView;
     private StreamAVOption streamAVOption;
-    private String rtmpUrl = "rtmp://ossrs.net/" + getRandomAlphaString(3) + '/' + getRandomAlphaDigitString(5);
+    private String rtmpUrl = "rtmp://ossrs.net/" + StatusBarUtils.getRandomAlphaString(3) + '/' + StatusBarUtils.getRandomAlphaDigitString(5);
 
     private LiveUI mLiveUI;
 
@@ -61,7 +60,7 @@ public class LiveActivity extends AppCompatActivity {
 
         @Override
         public void onWriteError(int errno) {
-            Toast.makeText(LiveActivity.this,"推流出错",Toast.LENGTH_LONG).show();
+            Toast.makeText(LiveActivity.this,"推流出错,请尝试重连",Toast.LENGTH_LONG).show();
         }
 
         @Override
@@ -75,30 +74,5 @@ public class LiveActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         mLiveCameraView.destroy();
-    }
-
-
-
-
-    private static String getRandomAlphaString(int length) {
-        String base = "abcdefghijklmnopqrstuvwxyz";
-        Random random = new Random();
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < length; i++) {
-            int number = random.nextInt(base.length());
-            sb.append(base.charAt(number));
-        }
-        return sb.toString();
-    }
-
-    private static String getRandomAlphaDigitString(int length) {
-        String base = "abcdefghijklmnopqrstuvwxyz0123456789";
-        Random random = new Random();
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < length; i++) {
-            int number = random.nextInt(base.length());
-            sb.append(base.charAt(number));
-        }
-        return sb.toString();
     }
 }

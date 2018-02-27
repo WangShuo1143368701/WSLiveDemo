@@ -59,29 +59,29 @@ public class LiveUI implements View.OnClickListener {
     @Override
     public void onClick(View view) {
        switch (view.getId()){
-           case R.id.btn_startStreaming:
+           case R.id.btn_startStreaming://开始推流
                if(!liveCameraView.isStreaming()){
                    liveCameraView.startStreaming(rtmpUrl);
                }
                break;
-           case R.id.btn_stopStreaming:
+           case R.id.btn_stopStreaming://停止推流
                if(liveCameraView.isStreaming()){
                    liveCameraView.stopStreaming();
                }
                break;
-           case R.id.btn_startRecord:
+           case R.id.btn_startRecord://开始录制
                if(!liveCameraView.isRecord()){
                    Toast.makeText(activity,"开始录制视频",Toast.LENGTH_SHORT).show();
                    liveCameraView.startRecord();
                }
                break;
-           case R.id.btn_stopRecord:
+           case R.id.btn_stopRecord://停止录制
                if(liveCameraView.isRecord()){
                    liveCameraView.stopRecord();
                    Toast.makeText(activity,"视频已成功保存至系统根目录的 Movies/WSLive文件夹中",Toast.LENGTH_LONG).show();
                }
                break;
-           case R.id.btn_filter:
+           case R.id.btn_filter://切换滤镜
                BaseHardVideoFilter baseHardVideoFilter = null;
                if(isFilter){
                    baseHardVideoFilter = new GPUImageCompatibleFilter(new GPUImageBeautyFilter());
@@ -91,7 +91,7 @@ public class LiveUI implements View.OnClickListener {
                liveCameraView.setHardVideoFilter(baseHardVideoFilter);
                isFilter = !isFilter;
                break;
-           case R.id.btn_swapCamera:
+           case R.id.btn_swapCamera://切换摄像头
                liveCameraView.swapCamera();
                break;
            default:

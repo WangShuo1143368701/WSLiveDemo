@@ -6,6 +6,8 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import java.util.Random;
+
 /**
  * Created by Wangshuo on 2018/2/26.
  */
@@ -22,5 +24,27 @@ public class StatusBarUtils {
         }
         ActionBar actionBar = activity.getSupportActionBar();
         actionBar.hide();
+    }
+
+    public static String getRandomAlphaString(int length) {
+        String base = "abcdefghijklmnopqrstuvwxyz";
+        Random random = new Random();
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < length; i++) {
+            int number = random.nextInt(base.length());
+            sb.append(base.charAt(number));
+        }
+        return sb.toString();
+    }
+
+    public static String getRandomAlphaDigitString(int length) {
+        String base = "abcdefghijklmnopqrstuvwxyz0123456789";
+        Random random = new Random();
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < length; i++) {
+            int number = random.nextInt(base.length());
+            sb.append(base.charAt(number));
+        }
+        return sb.toString();
     }
 }
