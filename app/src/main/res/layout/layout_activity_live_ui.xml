@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.wangshuo.wslive.wslivedemo.LiveActivity">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="60dp"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btn_swapCamera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="前后置"/>
+        <Button
+            android:id="@+id/btn_filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="滤镜"/>
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_startStreaming"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="开始推流"/>
+        <Button
+            android:id="@+id/btn_stopStreaming"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="停止推流"/>
+
+        <Button
+            android:id="@+id/btn_startRecord"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="开始录制"/>
+        <Button
+            android:id="@+id/btn_stopRecord"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="保存录制"/>
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>
