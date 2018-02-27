@@ -78,6 +78,8 @@ public class LiveActivity extends AppCompatActivity {
     }
 
 
+
+
     private static String getRandomAlphaString(int length) {
         String base = "abcdefghijklmnopqrstuvwxyz";
         Random random = new Random();
