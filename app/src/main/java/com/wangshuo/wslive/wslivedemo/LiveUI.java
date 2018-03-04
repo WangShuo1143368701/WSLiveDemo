@@ -33,10 +33,10 @@ public class LiveUI implements View.OnClickListener {
         this.liveCameraView = liveCameraView;
         this.rtmpUrl = rtmpUrl;
 
-        init();
+        initialization();
     }
 
-    private void init() {
+    private void initialization() {
         btnStartStreaming = (Button) activity.findViewById(R.id.btn_startStreaming);
         btnStartStreaming.setOnClickListener(this);
 
@@ -93,9 +93,6 @@ public class LiveUI implements View.OnClickListener {
                break;
            case R.id.btn_swapCamera://切换摄像头
                liveCameraView.swapCamera();
-               break;
-           default:
-               break;
        }
     }
 }
