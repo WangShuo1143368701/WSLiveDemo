@@ -17,8 +17,7 @@ public class StatusBarUtils {
     public static void setTranslucentStatus(AppCompatActivity activity) {
         if (Build.VERSION.SDK_INT >= 21) {
             View decorView = activity.getWindow().getDecorView();
-            int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+            int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN || View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
             decorView.setSystemUiVisibility(option);
             activity.getWindow().setStatusBarColor(Color.TRANSPARENT);
         }
@@ -31,8 +30,8 @@ public class StatusBarUtils {
         Random random = new Random();
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < length; i++) {
-            int number = random.nextInt(base.length());
-            sb.append(base.charAt(number));
+            //int number = random.nextInt(base.length()); reducing one variable 
+            sb.append(base.charAt(random.nextInt(base.length())));
         }
         return sb.toString();
     }
@@ -42,8 +41,8 @@ public class StatusBarUtils {
         Random random = new Random();
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < length; i++) {
-            int number = random.nextInt(base.length());
-            sb.append(base.charAt(number));
+            //int number = random.nextInt(base.length()); reducing one variable
+            sb.append(base.charAt(random.nextInt(base.length())));
         }
         return sb.toString();
     }
