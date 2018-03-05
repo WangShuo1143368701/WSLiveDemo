@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.SurfaceTexture;
 import android.hardware.Camera;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.TextureView;
 import android.widget.FrameLayout;
@@ -14,6 +15,7 @@ import java.util.List;
 
 import me.lake.librestreaming.client.RESClient;
 import me.lake.librestreaming.core.listener.RESConnectionListener;
+import me.lake.librestreaming.core.listener.RESScreenShotListener;
 import me.lake.librestreaming.core.listener.RESVideoChangeListener;
 import me.lake.librestreaming.encoder.MediaAudioEncoder;
 import me.lake.librestreaming.encoder.MediaEncoder;
@@ -73,7 +75,7 @@ public class StreamLiveCameraView extends FrameLayout {
         resConfig = StreamConfig.build(context,avOption);
         boolean isSucceed = resClient.prepare(resConfig);
         if (!isSucceed) {
-//            Log.w(TAG, "推流prepare方法返回false, 状态异常.");
+            Log.w(TAG, "推流prepare方法返回false, 状态异常.");
             return;
         }
         initPreviewTextureView();
@@ -197,11 +199,47 @@ public class StreamLiveCameraView extends FrameLayout {
     }
 
     /**
-     * 设置上下文
+     * 摄像头焦距 [0.0f,1.0f]
      */
-    public void setContext(Context context){
+    public void setZoomByPercent(float targetPercent){
         if(resClient != null){
-            resClient.setContext(context);
+            resClient.setZoomByPercent(targetPercent);
+        }
+    }
+
+    /**
+     *摄像头开关闪光灯
+     */
+    public void toggleFlashLight(){
+        if(resClient != null){
+            resClient.toggleFlashLight();
+        }
+    }
+
+    /**
+     * 推流过程中，重新设置帧率
+     */
+    public void reSetVideoFPS(int fps){
+        if(resClient != null){
+            resClient.reSetVideoFPS(fps);
+        }
+    }
+
+    /**
+     * 推流过程中，重新设置码率
+     */
+    public void reSetVideoBitrate(int bitrate){
+        if(resClient != null){
+            resClient.reSetVideoBitrate(bitrate);
+        }
+    }
+
+    /**
+     * 截图
+     */
+    public void takeScreenShot(RESScreenShotListener listener){
+        if(resClient != null){
+            resClient.takeScreenShot(listener);
         }
     }
 
@@ -223,10 +261,19 @@ public class StreamLiveCameraView extends FrameLayout {
     }
 
     /**
-     * AVSpeed
+     * AVSpeed 推流速度 和网络相关
      */
     public int getAVSpeed() {
         return resClient.getAVSpeed();
+    }
+
+    /**
+     * 设置上下文
+     */
+    public void setContext(Context context){
+        if(resClient != null){
+            resClient.setContext(context);
+        }
     }
 
     /**
@@ -243,36 +290,6 @@ public class StreamLiveCameraView extends FrameLayout {
                 stopRecord();
             }
             resClient.destroy();
-        }
-    }
-    /**
-     * 外部调用，2秒轮询
-     */
-    public void fpsVbitPlan() {
-        if(null == resClient){
-            return;
-        }
-
-        int target;
-        int curr = resClient.getVideoBitrate();
-
-        if(curr == quality_value_min){
-            resClient.reSetVideoFPS(16);
-        }else if(curr == quality_value_max) {
-            resClient.reSetVideoFPS(20);
-        }
-        //Log.e("wangshuo","Bitrate= "+curr);
-        //Log.e("wangshuo","FreePercent= "+resClient.getSendBufferFreePercent());
-        if (resClient.getSendBufferFreePercent() <= 0.99f) {//reduce bitrate
-            if (resClient.getVideoBitrate() > quality_value_min) {
-                target = (curr / 5 * 4) <= quality_value_min ? quality_value_min:(curr / 5 * 4);
-                resClient.reSetVideoBitrate(target);
-            }
-        } else {//raise bitrate
-            if (resClient.getVideoBitrate() < quality_value_max) {
-                target = (curr / 500 * 501) >= quality_value_max ? quality_value_max:(curr / 500 * 501);
-                resClient.reSetVideoBitrate(target);
-            }
         }
     }
 
