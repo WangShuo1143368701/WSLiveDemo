@@ -1,7 +1,7 @@
 # WSLiveDemo
 直播SDK，推流，录制视频，滤镜。
 
-博客教程：http://blog.csdn.net/King1425/article/details/79392158
+博客教程：http://blog.csdn.net/King1425/article/details/79392158<br/>
 交流群号：364886309 
 
 概述：
