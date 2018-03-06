@@ -243,6 +243,18 @@ public class StreamLiveCameraView extends FrameLayout {
         }
     }
 
+    /**
+     * 镜像
+     * @param isEnableMirror   是否启用镜像功能 总开关
+     * @param isEnablePreviewMirror  是否开启预览镜像
+     * @param isEnableStreamMirror   是否开启推流镜像
+     */
+    public void setMirror(boolean isEnableMirror,boolean isEnablePreviewMirror,boolean isEnableStreamMirror) {
+        if(resClient != null) {
+            resClient.setMirror(isEnableMirror, isEnablePreviewMirror, isEnableStreamMirror);
+        }
+    }
+
 
     /**
      * 设置滤镜

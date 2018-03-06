@@ -544,4 +544,9 @@ public class RESSoftVideoCore implements RESVideoCore {
     public void setVideoEncoder(final MediaVideoEncoder encoder) {
 
     }
+
+    @Override
+    public void setMirror(boolean isEnableMirror, boolean isEnablePreviewMirror, boolean isEnableStreamMirror) {
+
+    }
 }

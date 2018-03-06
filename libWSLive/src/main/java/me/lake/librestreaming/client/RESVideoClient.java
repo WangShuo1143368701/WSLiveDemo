@@ -457,4 +457,7 @@ public class RESVideoClient {
         videoCore.setVideoEncoder(encoder);
     }
 
+    public void setMirror(boolean isEnableMirror,boolean isEnablePreviewMirror,boolean isEnableStreamMirror) {
+        videoCore.setMirror(isEnableMirror,isEnablePreviewMirror,isEnableStreamMirror);
+    }
 }

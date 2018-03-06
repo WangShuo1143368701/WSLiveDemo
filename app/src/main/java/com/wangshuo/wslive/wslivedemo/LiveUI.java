@@ -1,9 +1,12 @@
 package com.wangshuo.wslive.wslivedemo;
 
+import android.graphics.Bitmap;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import me.lake.librestreaming.core.listener.RESScreenShotListener;
 import me.lake.librestreaming.filter.hardvideofilter.BaseHardVideoFilter;
 import me.lake.librestreaming.ws.StreamLiveCameraView;
 import me.lake.librestreaming.ws.filter.hardfilter.FishEyeFilterHard;
@@ -20,6 +23,7 @@ public class LiveUI implements View.OnClickListener {
     private StreamLiveCameraView liveCameraView;
     private String rtmpUrl = "";
     boolean isFilter = false;
+    boolean isMirror = false;
 
     private Button btnStartStreaming;
     private Button btnStopStreaming;
@@ -27,6 +31,10 @@ public class LiveUI implements View.OnClickListener {
     private Button btnStopRecord;
     private Button btnFliter;
     private Button btnSwapCamera;
+    private Button btnScreenshot;
+    private Button btnMirror;
+
+    private ImageView imageView;
 
     public LiveUI(LiveActivity liveActivity , StreamLiveCameraView liveCameraView , String rtmpUrl) {
         this.activity = liveActivity;
@@ -54,6 +62,20 @@ public class LiveUI implements View.OnClickListener {
 
         btnSwapCamera = (Button) activity.findViewById(R.id.btn_swapCamera);
         btnSwapCamera.setOnClickListener(this);
+
+        btnScreenshot = (Button) activity.findViewById(R.id.btn_screenshot);
+        btnScreenshot.setOnClickListener(this);
+
+        btnMirror = (Button) activity.findViewById(R.id.btn_mirror);
+        btnMirror.setOnClickListener(this);
+
+        imageView = (ImageView) activity.findViewById(R.id.iv_image);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                imageView.setVisibility(View.GONE);
+            }
+        });
     }
 
     @Override
@@ -93,6 +115,26 @@ public class LiveUI implements View.OnClickListener {
                break;
            case R.id.btn_swapCamera://切换摄像头
                liveCameraView.swapCamera();
+               break;
+           case R.id.btn_screenshot://截帧
+               liveCameraView.takeScreenShot(new RESScreenShotListener() {
+                   @Override
+                   public void onScreenShotResult(Bitmap bitmap) {
+                       if(bitmap != null){
+                           imageView.setVisibility(View.VISIBLE);
+                           imageView.setImageBitmap(bitmap);
+                       }
+
+                   }
+               });
+               break;
+           case R.id.btn_mirror://镜像
+               if(isMirror){
+                   liveCameraView.setMirror(true,false,false);
+               }else {
+                   liveCameraView.setMirror(true,true,true);
+               }
+               isMirror = !isMirror;
                break;
            default:
                break;

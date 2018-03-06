@@ -450,4 +450,50 @@ public class GLHelper {
     private static float flip(final float i) {
         return (1.0f - i);
     }
+
+
+    public static FloatBuffer adjustTextureFlip(boolean flipHorizontal) {
+        float[] textureCords = getFlip(flipHorizontal, false);
+        FloatBuffer mTextureBuffer = null;
+        if (mTextureBuffer == null) {
+            mTextureBuffer = ByteBuffer.allocateDirect(textureCords.length * 4)
+                    .order(ByteOrder.nativeOrder())
+                    .asFloatBuffer();
+        }
+        mTextureBuffer.clear();
+        mTextureBuffer.put(textureCords).position(0);
+
+        return mTextureBuffer;
+    }
+
+    public static float[] getFlip(final boolean flipHorizontal,
+                                      final boolean flipVertical) {
+        float[] rotatedTex = Cam2dTextureVertices;
+
+        if (flipHorizontal) {
+            rotatedTex = new float[]{
+                    flip2(rotatedTex[0]), rotatedTex[1],
+                    flip2(rotatedTex[2]), rotatedTex[3],
+                    flip2(rotatedTex[4]), rotatedTex[5],
+                    flip2(rotatedTex[6]), rotatedTex[7],
+            };
+        }
+        if (flipVertical) {
+            rotatedTex = new float[]{
+                    rotatedTex[0], flip2(rotatedTex[1]),
+                    rotatedTex[2], flip2(rotatedTex[3]),
+                    rotatedTex[4], flip2(rotatedTex[5]),
+                    rotatedTex[6], flip2(rotatedTex[7]),
+            };
+        }
+        return rotatedTex;
+    }
+
+
+    private static float flip2(final float i) {
+        if (i == 0.0f) {
+            return 1.0f;
+        }
+        return 0.0f;
+    }
 }

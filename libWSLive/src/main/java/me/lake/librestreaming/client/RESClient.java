@@ -516,6 +516,10 @@ public class RESClient {
         videoClient.setVideoEncoder(encoder);
     }
 
+    public void setMirror(boolean isEnableMirror,boolean isEnablePreviewMirror,boolean isEnableStreamMirror) {
+        videoClient.setMirror(isEnableMirror,isEnablePreviewMirror,isEnableStreamMirror);
+    }
+
     static {
         System.loadLibrary("restreaming");
     }

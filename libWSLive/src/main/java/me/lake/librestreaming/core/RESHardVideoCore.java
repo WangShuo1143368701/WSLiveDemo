@@ -2,6 +2,7 @@ package me.lake.librestreaming.core;
 
 import android.annotation.TargetApi;
 import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.graphics.SurfaceTexture;
 import android.hardware.Camera;
 import android.media.MediaCodec;
@@ -61,6 +62,10 @@ public class RESHardVideoCore implements RESVideoCore {
     private boolean isPreviewing = false;
     private boolean isStreaming = false;
     private int loopingInterval;
+
+    private boolean isEnableMirror;
+    private boolean isEnablePreviewMirror;
+    private boolean isEnableStreamMirror;
 
     public RESHardVideoCore(RESCoreParameters parameters) {
         resCoreParameters = parameters;
@@ -245,6 +250,13 @@ public class RESHardVideoCore implements RESVideoCore {
         synchronized (syncResScreenShotListener) {
             resScreenShotListener = listener;
         }
+    }
+
+
+    public void setMirror(boolean isEnableMirror,boolean isEnablePreviewMirror,boolean isEnableStreamMirror) {
+            this.isEnableMirror = isEnableMirror;
+            this.isEnablePreviewMirror = isEnablePreviewMirror;
+            this.isEnableStreamMirror = isEnableStreamMirror;
     }
 
     @Override
@@ -470,6 +482,11 @@ public class RESHardVideoCore implements RESVideoCore {
 
 
         private void drawSample2DFrameBuffer(SurfaceTexture cameraTexture) {
+            if(isEnableMirror){
+                screenTextureVerticesBuffer = GLHelper.adjustTextureFlip(isEnablePreviewMirror);
+                mediaCodecTextureVerticesBuffer = GLHelper.adjustTextureFlip(isEnableStreamMirror);
+            }
+
             GLES20.glBindFramebuffer(GLES20.GL_FRAMEBUFFER, sample2DFrameBuffer);
             GLES20.glUseProgram(offScreenGLWapper.cam2dProgram);
             GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
@@ -505,7 +522,7 @@ public class RESHardVideoCore implements RESVideoCore {
                 GLHelper.enableVertex(offScreenGLWapper.camPostionLoc, offScreenGLWapper.camTextureCoordLoc,
                         shapeVerticesBuffer, cameraTextureVerticesBuffer);
             }
-            GLES20.glViewport(0, 0, resCoreParameters.videoWidth, resCoreParameters.videoHeight);
+            GLES20.glViewport(0, 0, resCoreParameters.previewVideoHeight, resCoreParameters.previewVideoWidth);
             doGLDraw();
             GLES20.glFinish();
             GLHelper.disableVertex(offScreenGLWapper.camPostionLoc, offScreenGLWapper.camTextureCoordLoc);
@@ -615,15 +632,21 @@ public class RESHardVideoCore implements RESVideoCore {
                 if (resScreenShotListener != null) {
                     Bitmap result = null;
                     try {
-                        IntBuffer pixBuffer = IntBuffer.allocate(resCoreParameters.videoWidth * resCoreParameters.videoHeight);
-                        GLES20.glReadPixels(0, 0, resCoreParameters.videoWidth, resCoreParameters.videoHeight, GLES20.GL_RGBA, GLES20.GL_UNSIGNED_BYTE, pixBuffer);
+                        IntBuffer pixBuffer = IntBuffer.allocate(resCoreParameters.previewVideoHeight * resCoreParameters.previewVideoWidth);
+                        GLES20.glReadPixels(0, 0, resCoreParameters.previewVideoHeight, resCoreParameters.previewVideoWidth, GLES20.GL_RGBA, GLES20.GL_UNSIGNED_BYTE, pixBuffer);
                         int[] glPixel = pixBuffer.array();
-                        int[] argbPixel = new int[resCoreParameters.videoWidth * resCoreParameters.videoHeight];
-                        ColorHelper.FIXGLPIXEL(glPixel, argbPixel, resCoreParameters.videoWidth, resCoreParameters.videoHeight);
+                        int[] argbPixel = new int[resCoreParameters.previewVideoHeight * resCoreParameters.previewVideoWidth];
+                        ColorHelper.FIXGLPIXEL(glPixel, argbPixel, resCoreParameters.previewVideoHeight, resCoreParameters.previewVideoWidth);
                         result = Bitmap.createBitmap(argbPixel,
-                                resCoreParameters.videoWidth,
-                                resCoreParameters.videoHeight,
+                                resCoreParameters.previewVideoHeight,
+                                resCoreParameters.previewVideoWidth,
                                 Bitmap.Config.ARGB_8888);
+
+                        if(isEnableMirror && isEnablePreviewMirror){
+                            Matrix mx = new Matrix();
+                            mx.setScale(-1, 1);  //产生镜像
+                            result =   Bitmap.createBitmap(result,0,0,result.getWidth(),result.getHeight(),mx,true);
+                        }
                     } catch (Exception e) {
                         LogTools.trace("takescreenshot failed:", e);
                     } finally {

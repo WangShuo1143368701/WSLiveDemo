@@ -45,4 +45,6 @@ public interface RESVideoCore {
     float getDrawFrameRate();
 
     void setVideoEncoder(final MediaVideoEncoder encoder);
+
+    void setMirror(boolean isEnableMirror,boolean isEnablePreviewMirror,boolean isEnableStreamMirror);
 }
