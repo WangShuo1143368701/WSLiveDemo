@@ -170,6 +170,7 @@ public class StreamLiveCameraView extends FrameLayout {
      * 停止录制
      */
     public String stopRecord() {
+        isRecord = false;
         if (mMuxer != null) {
             String path = mMuxer.getFilePath();
             mMuxer.stopRecording();
@@ -178,7 +179,6 @@ public class StreamLiveCameraView extends FrameLayout {
             return path;
         }
         System.gc();
-        isRecord = false;
         return null;
     }
 
