@@ -1,7 +1,8 @@
 # WSLiveDemo
 直播SDK，推流，录制视频，滤镜。
 
-博客教程：http://blog.csdn.net/King1425/article/details/79392158
+博客教程：http://blog.csdn.net/King1425/article/details/79392158<br/>
+交流群号：364886309 
 
 概述：
 ---
@@ -14,6 +15,8 @@
 特性：
 --
 支持视频录制和推流，推流录制视频可以同时进行<br/>
+支持推流过程中实时截帧功能<br/>
+支持推流过程中实时镜像功能，不会打断推流<br/>
 支持设置关键帧间隔gop<br/>
 支持动态设置码率，帧率<br/>
 支持分开设置预览分辨率，编码的分辨率<br/>
@@ -27,6 +30,11 @@
 关于美颜：
 ----
 美颜滤镜可动态调节磨皮，美白，红润。你可以调出一个你喜欢的美颜滤镜。
+
+关于截帧，镜像：
+----
+推流过程中可以实时截帧。<br/>
+推流过程中可以实时调节镜像，不会打断推流。可以分别调节预览镜像，推流镜像。
 
 关于性能：
 -----
@@ -109,9 +117,15 @@
 
     //Add the dependency
 
-    dependencies { compile 'com.github.WangShuo1143368701:WSLiveDemo:v1.0' }
+   dependencies {
+	        compile 'com.github.WangShuo1143368701:WSLiveDemo:v1.5'
+	}
 
 ```
+
+关于学习：
+-----
+欢迎加入音视频交流群：364886309
 
 
 
