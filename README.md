@@ -22,6 +22,7 @@
 支持分开设置预览分辨率，编码的分辨率<br/>
 支持gpu滤镜，并可以通过opengles绘制图像纹理来自定义滤镜。<br/>
 支持设fbo滤镜组。<br/>
+支持设置水印<br/>
 支持前后摄像头快速切换，不会打断推流。<br/>
 支持后台推流，后台录制视频<br/>
 美颜滤镜可动态调节磨皮，美白，红润。<br/>
@@ -118,7 +119,7 @@
     //Add the dependency
 
    dependencies {
-	        compile 'com.github.WangShuo1143368701:WSLiveDemo:v1.5'
+	         compile 'com.github.WangShuo1143368701:WSLiveDemo:v1.6'
 	}
 
 ```
