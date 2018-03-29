@@ -8,6 +8,8 @@ import android.graphics.SurfaceTexture;
 import android.os.Build;
 import android.widget.Toast;
 
+import java.lang.ref.WeakReference;
+
 import me.lake.librestreaming.core.listener.RESConnectionListener;
 import me.lake.librestreaming.core.listener.RESScreenShotListener;
 import me.lake.librestreaming.core.listener.RESVideoChangeListener;
@@ -34,7 +36,7 @@ public class RESClient {
     private RESFlvDataCollecter dataCollecter;
     //是否在推流
     public boolean isStreaming = false;
-    private Activity mActivity;
+    private WeakReference<Activity> mActivity;
 
     public RESClient() {
         SyncOp = new Object();
@@ -44,7 +46,7 @@ public class RESClient {
 
     public void setContext(Context context){
         if(context instanceof Activity){
-            this.mActivity = (Activity) context;
+            this.mActivity = new WeakReference<Activity>((Activity) context);
         }
     }
 
@@ -101,15 +103,10 @@ public class RESClient {
                 rtmpSender.start(rtmpAddr == null ? coreParameters.rtmpAddr : rtmpAddr);
                 audioClient.start(dataCollecter);
                 LogTools.d("RESClient,startStreaming()");
-            }catch (IllegalStateException e){
-                if(mActivity !=null){
-                    Toast.makeText(mActivity,"可能没有权限",Toast.LENGTH_LONG).show();
-                    mActivity.finish();
-                }
             }catch (Exception e){
-                if(mActivity !=null){
-                    Toast.makeText(mActivity,"可能没有权限",Toast.LENGTH_LONG).show();
-                    mActivity.finish();
+                if(mActivity.get() !=null){
+                    Toast.makeText(mActivity.get(),"可能没有权限",Toast.LENGTH_LONG).show();
+                    mActivity.get().finish();
                 }
             }
 
