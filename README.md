@@ -119,7 +119,7 @@
     //Add the dependency
 
    dependencies {
-	         compile 'com.github.WangShuo1143368701:WSLiveDemo:v1.6'
+	         compile 'com.github.WangShuo1143368701:WSLiveDemo:v1.7'
 	}
 
 ```
