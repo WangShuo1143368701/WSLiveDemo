@@ -152,6 +152,7 @@ public class StreamLiveCameraView extends FrameLayout {
     private boolean isRecord = false;
     public void startRecord(){
         if(resClient != null){
+            resClient.setNeedResetEglContext(true);
             try {
                 mMuxer = new MediaMuxerWrapper(".mp4");    // if you record audio only, ".m4a" is also OK.
                 new MediaVideoEncoder(mMuxer, mMediaEncoderListener, StreamAVOption.recordVideoWidth, StreamAVOption.recordVideoHeight);
@@ -385,7 +386,7 @@ public class StreamLiveCameraView extends FrameLayout {
     /**
      * callback methods from encoder
      */
-    private final MediaEncoder.MediaEncoderListener mMediaEncoderListener = new MediaEncoder.MediaEncoderListener() {
+    MediaEncoder.MediaEncoderListener mMediaEncoderListener = new MediaEncoder.MediaEncoderListener() {
         @Override
         public void onPrepared(final MediaEncoder encoder) {
             if (encoder instanceof MediaVideoEncoder && resClient != null)

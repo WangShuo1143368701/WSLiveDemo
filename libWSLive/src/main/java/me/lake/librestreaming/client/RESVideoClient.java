@@ -460,4 +460,7 @@ public class RESVideoClient {
     public void setMirror(boolean isEnableMirror,boolean isEnablePreviewMirror,boolean isEnableStreamMirror) {
         videoCore.setMirror(isEnableMirror,isEnablePreviewMirror,isEnableStreamMirror);
     }
+    public void setNeedResetEglContext(boolean bol){
+        videoCore.setNeedResetEglContext(bol);
+    }
 }

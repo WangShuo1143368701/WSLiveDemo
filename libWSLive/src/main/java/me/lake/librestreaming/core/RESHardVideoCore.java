@@ -877,5 +877,9 @@ public class RESHardVideoCore implements RESVideoCore {
 
         return;
     }
+
+    public void setNeedResetEglContext(boolean bol){
+        mNeedResetEglContext = bol;
+    }
     //encoder mp4 end
 }

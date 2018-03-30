@@ -47,4 +47,7 @@ public interface RESVideoCore {
     void setVideoEncoder(final MediaVideoEncoder encoder);
 
     void setMirror(boolean isEnableMirror,boolean isEnablePreviewMirror,boolean isEnableStreamMirror);
+    void setNeedResetEglContext(boolean bol);
+
+
 }

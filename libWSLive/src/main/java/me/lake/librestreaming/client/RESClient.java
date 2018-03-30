@@ -517,6 +517,10 @@ public class RESClient {
         videoClient.setMirror(isEnableMirror,isEnablePreviewMirror,isEnableStreamMirror);
     }
 
+    public void setNeedResetEglContext(boolean bol){
+        videoClient.setNeedResetEglContext(bol);
+    }
+
     static {
         System.loadLibrary("restreaming");
     }

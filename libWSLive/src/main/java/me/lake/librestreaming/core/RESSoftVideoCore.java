@@ -549,4 +549,7 @@ public class RESSoftVideoCore implements RESVideoCore {
     public void setMirror(boolean isEnableMirror, boolean isEnablePreviewMirror, boolean isEnableStreamMirror) {
 
     }
+    public void setNeedResetEglContext(boolean bol){
+
+    }
 }
