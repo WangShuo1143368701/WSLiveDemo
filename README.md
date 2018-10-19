@@ -128,6 +128,8 @@
 -----
 欢迎加入音视频交流群：364886309
 
+![扫描进群交流](https://github.com/WangShuo1143368701/VideoView-master/blob/master/app/src/main/image/qrcode_1539918712343.jpg)
+
 
 
 
