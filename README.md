@@ -2,7 +2,7 @@
 直播SDK，推流，录制视频，滤镜。
 
 博客教程：http://blog.csdn.net/King1425/article/details/79392158<br/>
-交流群号：364886309 
+交流群号：364886309 ，949792060
 
 概述：
 ---
@@ -126,9 +126,8 @@
 
 关于学习：
 -----
-欢迎加入音视频交流群：364886309
+欢迎加入音视频交流群：364886309，949792060
 
-![扫描进群交流](https://github.com/WangShuo1143368701/VideoView-master/blob/master/app/src/main/image/qrcode_1539918712343.jpg)
 
 
 
