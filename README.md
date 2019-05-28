@@ -41,6 +41,11 @@
 -----
 采用相机回调纹理texture,OpenGL渲染后直接把textureID传给编码器的方案，中间没有数据格式转换，没有glReadPixel()函数耗时问题。所以性能较其它方案要好的多。缺点是必须是Android4.3以上。
 
+关于拉流：
+-----
+https://github.com/WangShuo1143368701/WS_IJK
+优化过的IJK播放器，秒开实现，推流端断网回调等。。。
+
 关于使用：
 -----
 
