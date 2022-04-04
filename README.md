@@ -7,7 +7,7 @@
 概述：
 ---
 **现在把我们项目中的直播SDK开源出来，我们是境外直播平台，百万用户，经过半年迭代，SDK已经相当稳定，大家可以放心使用。https://github.com/WangShuo1143368701/WSLiveDemo**
-这个sdk是我根据这个[librestreaming](https://github.com/lakeinchina/librestreaming)修修改改出来的，由于改了太多的代码，用法已经不一样了。
+
 
 之前写过一篇[ffmpeg实战教程（十一）手把手教你实现直播功能，不依赖第三方SDK](http://blog.csdn.net/king1425/article/details/72560673)
 是用ffmpeg实现的推流，但是在实际移动端直播项目中，推流是不适合用ffmpeg的。
